@@ -1,3 +1,3 @@
 require('playwright')
 
-console.log('IT WORKS STILL')
+console.log('IT WORKS STILL', require('./helper'))
