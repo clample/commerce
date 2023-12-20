@@ -12,7 +12,7 @@ jobs:
           text: ${{ github.event.release.tag_name }}
           regex: '^\d+\.\d+\.\d+$'
       - run: echo "Please create tag for release with format like 4.0.1" && exit 1
-        if: ${{ steps.regex-match.outputs.match == '' }}
+        if: ${{ steps.tag-match.outputs.match == '' }}
 
   # Build package and publish a prerelease
   prerelease:
