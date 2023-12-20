@@ -12,7 +12,23 @@ jobs:
           text: ${{ github.event.release.tag_name }}
           regex: '^\d+\.\d+\.\d+$'
       - run: echo "Please create tag for release with format like 4.0.1" && exit 1
-        if: ${{ steps.regex-match.outputs.match == '' }}
+        if: ${{ steps.tag-match.outputs.match == '' }}
+      # Old create-checkly versions still look for the tag with a `v` prefix.
+      # We can automatically push the necessary tag to keep those working.
+      - name: Create tag for old create-checkly versions
+        uses: actions/github-script@v6
+        with:
+          script: |
+            github.rest.git.createRef({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              ref: 'refs/tags/v${{ github.event.release.tag_name }}',
+              sha: context.sha
+            })
+      - name: Add SHORT_SHA env property with commit short sha
+        run: echo "SHORT_SHA=$(git rev-parse --short HEAD)" >> $GITHUB_ENV
+      - name: test short sha
+        run: echo ${{ env.SHORT_SHA }}
 
   # Build package and publish a prerelease
   prerelease:
