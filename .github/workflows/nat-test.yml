@@ -7,5 +7,10 @@ jobs:
     steps:
       # Get IPV6
       - run: curl https://ip6only.me/api/
+        continue-on-error: true
+      # Try again IPv6
+      - run: curl -6 https://whatismyip.akami.com
+        continue-on-error: true
       # Get IPV4
-      - run: curl http://whatismyip.akamai.com/
+      - run: curl https://whatismyip.akamai.com/
+      - run: python3 -m http.server 8000
