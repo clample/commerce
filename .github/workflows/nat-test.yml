@@ -1,0 +1,11 @@
+name: NAT Test
+on:
+  workflow_dispatch
+jobs:
+  run-server:
+    runs-on: ubuntu-latest
+    steps:
+      # Get IPV6
+      - run: curl https://ip6only.me/api/
+      # Get IPV4
+      - run: curl http://whatismyip.akamai.com/
