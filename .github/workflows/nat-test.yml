@@ -4,9 +4,9 @@ on:
 jobs:
   phase-1:
     runs-on: ubuntu-latest
+    uses: ./.github/workflows/test-helper.yml
     strategy:
       matrix:
-        region: ['eu-central-1', 'eu-west-2']
-    uses: ./.github/workflows/test-helper.yml
+        region: ["eu-central-1", "eu-west-2"]
     with:
       region: ${{ matrix.region }}
