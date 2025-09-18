@@ -1,12 +1,12 @@
 name: Test
 on:
   workflow_dispatch
+
 jobs:
   phase-1:
-    runs-on: ubuntu-latest
-    uses: ./.github/workflows/test-helper.yml
     strategy:
       matrix:
         region: ["eu-central-1", "eu-west-2"]
+    uses: ./.github/workflows/test-helper.yml
     with:
       region: ${{ matrix.region }}
