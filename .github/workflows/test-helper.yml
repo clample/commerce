@@ -1,0 +1,14 @@
+name: Runners / Terraform apply
+
+on:
+  workflow_call:
+    inputs:
+      region:
+        type: string
+
+jobs:
+  test-run:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Echo
+        run: echo "Hello ${{ inputs.region }}"
